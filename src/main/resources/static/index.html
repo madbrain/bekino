@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="http://underscorejs.org/underscore.js" charset="utf-8"></script>
+
+    <style>
+
+        * {
+        font-family: sans;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div>
+    <select id="kinoSelect">
+        <option value="null">Select a theater</option>
+    </select>
+    <input type="text" id="datepicker">
+</div>
+
+<svg id="diagram" width="1000" height="800">
+    <defs>
+        <marker id="arrowhead"
+                viewBox="0 0 10 10"
+                refX="8"
+                refY="5"
+                markerUnits="strokeWidth"
+                markerWidth="8"
+                markerHeight="5"
+                orient="auto"
+                style="fill: #333">
+            <path d="M 0 0 L 10 5 L 0 10 z"></path>
+        </marker>
+
+        <filter id="drop-shadow" width="150%" height="150%">
+            <feGaussianBlur in="SourceAlpha" result="blur-out" stdDeviation="2"/>
+            <feOffset in="blur-out" result="the-shadow" dx="2" dy="2"/>
+            <feBlend in="SourceGraphic" in2="the-shadow" mode="normal"/>
+        </filter>
+        <linearGradient id="rect-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgb(107, 29, 143);stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:rgb(190,51,255);stop-opacity:1"/>
+        </linearGradient>
+    </defs>
+</svg>
+
+<script src="js/bekino-graph.js"></script>
+
+</body>
+</html>
