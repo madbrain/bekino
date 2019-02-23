@@ -1,20 +1,20 @@
 package org.xteam.movieextract.extract;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.stereotype.Service;
 import org.xteam.movieextract.DocumentFetcher;
 import org.xteam.movieextract.ExtractAllocineMovies;
@@ -30,6 +30,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ExtractAllocineMoviesImpl implements ExtractAllocineMovies {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExtractAllocineMoviesImpl.class);
+    
+    private static final String DEFAULT_TIME = "00:00";
 
     private DocumentFetcher documentFetcher;
 
@@ -72,8 +74,8 @@ public class ExtractAllocineMoviesImpl implements ExtractAllocineMovies {
                     for (AllocineShowtimes sts : e.getValue()) {
                         for (AllocineShowtime s : sts.getShowtimes()) {
                             filmShowTimes.getShowTimes().add(new ShowTime(
-                                    formatter.format(s.getShowStart()),
-                                    formatter.format(s.getMovieEnd())));
+                                    Optional.ofNullable(s.getShowStart()).map(formatter::format).orElse(DEFAULT_TIME),
+                                    Optional.ofNullable(s.getMovieEnd()).map(formatter::format).orElse(DEFAULT_TIME)));
                         }
                     }
                 }
