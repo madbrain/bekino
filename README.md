@@ -1,4 +1,4 @@
 BeKino
 ======
 
-Experiment with SpringBoot+MongoDB+D3.js+OpenShift
+Experiment with SpringBoot, MongoDB, D3.js and OpenShift.
